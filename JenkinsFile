@@ -6,7 +6,7 @@ pipeline {
         SONAR_SCANNER_HOME = tool 'Sonarqube'
 
         AWS_REGION = 'us-east-1'
-        ECR_REPO = 'my-repo'
+        ECR_REPO = 'llm-repo'
         IMAGE_TAG = 'latest'
     }
 
@@ -51,6 +51,7 @@ pipeline {
                     credentialsId: 'aws-token'
                 ]]) {
                     script {
+
                         def accountId = sh(
                             script: "aws sts get-caller-identity --query Account --output text",
                             returnStdout: true
@@ -70,6 +71,37 @@ pipeline {
                     }
                 }
             }
+        }
+
+        stage('Deploy to ECS Fargate') {
+            steps {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-token'
+                ]]) {
+                    sh """
+                        aws ecs update-service \
+                          --cluster multi-ai-agent-cluster \
+                          --service multi-ai-agent-def-service-shqlo39p \
+                          --force-new-deployment \
+                          --region ${AWS_REGION}
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline executed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline execution failed.'
+        }
+
+        always {
+            cleanWs()
         }
     }
 }
