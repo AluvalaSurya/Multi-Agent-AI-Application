@@ -8,3 +8,4 @@ streamlit
 langgraph
 langchain-core
 setuptools
+mcp[cli]
