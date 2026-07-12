@@ -1,52 +1,105 @@
-from app.mcp.service import MCPService
+from app.mcp.client import MCPClient
 
 
 class MCPTools:
 
-    def __init__(self):
-        self.service = MCPService()
+    @staticmethod
+    async def read_file(path: str):
 
-    async def search(self,query: str):
+        async with MCPClient("filesystem") as client:
 
-        return await self.service.call_tool("tavily","search",
-            {"query": query}
-        )
+            return await client.call_tool(
 
-    async def read_file(self,path: str):
+                "read_file",
 
-        return await self.service.call_tool(
-            "filesystem",
-            "read_file",
-            {"path": path}
-        )
+                {
+                    "path": path
+                }
 
-    async def write_file(self,path: str,content: str):
+            )
 
-        return await self.service.call_tool(
-            "filesystem",
-            "write_file",
-            {"path": path,
-             "content": content
-}
+    @staticmethod
+    async def write_file(
 
-        )
+        path: str,
 
+        content: str
+
+    ):
+
+        async with MCPClient("filesystem") as client:
+
+            return await client.call_tool(
+
+                "write_file",
+
+                {
+                    "path": path,
+
+                    "content": content
+
+                }
+
+            )
+
+    @staticmethod
+    async def list_directory(path: str):
+
+        async with MCPClient("filesystem") as client:
+
+            return await client.call_tool(
+
+                "list_directory",
+
+                {
+                    "path": path
+                }
+
+            )
+
+    @staticmethod
+    async def search(query: str):
+
+        async with MCPClient("tavily") as client:
+
+            return await client.call_tool(
+
+                "search",
+
+                {
+                    "query": query
+                }
+
+            )
+
+    @staticmethod
     async def create_issue(
-        self,
+
         owner: str,
+
         repo: str,
+
         title: str,
+
         body: str
 
     ):
 
-        return await self.service.call_tool("github","create_issue",
-            {
-                "owner": owner,
-                "repo": repo,
-                "title": title,
-                "body": body
+        async with MCPClient("github") as client:
 
-            }
+            return await client.call_tool(
 
-        )
+                "create_issue",
+
+                {
+                    "owner": owner,
+
+                    "repo": repo,
+
+                    "title": title,
+
+                    "body": body
+
+                }
+
+            )

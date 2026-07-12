@@ -1,0 +1,2 @@
+LangGraph is a framework for building stateful, multi-agent AI applications.
+MCP allows AI models to communicate with external tools using a standardized protocol.

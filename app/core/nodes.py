@@ -12,9 +12,16 @@ def github_node(state):
     return GithubAgent(state).run()
 
 #for filesystem 
-def filesystem_node(state):
-    return FilesystemAgent(state).run()
+filesystem_agent = FilesystemAgent()
+# def filesystem_node(state):
+#     return FilesystemAgent(state).run()
+
+
+async def filesystem_node(state):
+    return await filesystem_agent.run(state)
 
 
 def response_node(state):
     return ResponseAgent(state).run()
+
+

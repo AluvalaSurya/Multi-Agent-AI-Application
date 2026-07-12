@@ -13,4 +13,4 @@ class AgentState(TypedDict):
     model_name: str
     allow_search: bool
     next_node: str
-    agent_response: str
+    agent_outputs: dict[str, str]

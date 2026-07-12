@@ -3,54 +3,50 @@ import os
 
 
 @dataclass(frozen=True)
-class MCPServer:
+class MCPServerConfig:
+    name: str
     command: str
     args: list[str]
-    env: dict | None = None
+    env: dict[str, str] | None = None
 
 
-SERVERS = {
+MCP_SERVERS = {
 
-    "filesystem": MCPServer(
+    "filesystem": MCPServerConfig(
+        name="filesystem",
         command="npx",
         args=[
             "-y",
             "@modelcontextprotocol/server-filesystem",
             "./workspace"
         ]
-
     ),
 
-    "github": MCPServer(
+    "github": MCPServerConfig(
+        name="github",
         command="npx",
         args=[
             "-y",
             "@modelcontextprotocol/server-github"
         ],
-
         env={
             "GITHUB_PERSONAL_ACCESS_TOKEN":
-            os.getenv("GITHUB_TOKEN")
-
+                os.getenv("GITHUB_TOKEN", "")
         }
-
     ),
 
-    "tavily": MCPServer(
-
+    # Replace with official Tavily MCP command later
+    "tavily": MCPServerConfig(
+        name="tavily",
         command="python",
         args=[
             "-m",
             "tavily_mcp"
-
         ],
-
         env={
             "TAVILY_API_KEY":
-            os.getenv("TAVILY_API_KEY")
-
+                os.getenv("TAVILY_API_KEY", "")
         }
-
     )
 
 }

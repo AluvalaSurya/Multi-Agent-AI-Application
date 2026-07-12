@@ -13,6 +13,6 @@ class ResponseAgent(BaseAgent):
         {self.state["user_query"]}
         """
 
-        self.state["agent_response"] = self.invoke_llm(prompt)
+        self.state["agent_outputs"] = self.invoke_llm(prompt)
 
         return self.state
