@@ -1,6 +1,8 @@
 from typing import Annotated, TypedDict, List
 from langgraph.graph.message import add_messages
 
+def merge_dict(left: dict, right: dict):
+    return {**left, **right}
 
 class AgentState(TypedDict):
     """
@@ -12,5 +14,8 @@ class AgentState(TypedDict):
     system_prompt: str
     model_name: str
     allow_search: bool
-    next_node: str
-    agent_outputs: dict[str, str]
+    next_nodes: list[str]
+    routing_reason: str
+    routing_confidence: float
+    agent_outputs: Annotated[dict[str, str],merge_dict]
+    final_response: str
