@@ -120,34 +120,57 @@ class MCPTools:
                 }
             )
 
+
+    # Repository Search (Research/Discovery Agent)
     @staticmethod
-    async def create_issue(
-
-        owner: str,
-
-        repo: str,
-
-        title: str,
-
-        body: str
-
-    ):
+    async def search_repositories(query: str):
 
         async with MCPClient("github") as client:
 
             return await client.call_tool(
+                "search_repositories",
+                {
+                    "query": query
+                }
+            )
+        
+    # Get File Contents (Repository Understanding)
+    @staticmethod
+    async def get_file_contents(
+        owner: str,
+        repo: str,
+        path: str
+    ):
+        async with MCPClient("github") as client:
 
-                "create_issue",
-
+            return await client.call_tool(
+                "get_file_contents",
                 {
                     "owner": owner,
-
                     "repo": repo,
+                    "path": path
+                }
+            )
 
+    
+    # Create Issue (Repository Management)
+    @staticmethod
+    async def create_issue(
+        owner: str,
+        repo: str,
+        title: str,
+        body: str
+
+    ):
+        async with MCPClient("github") as client:
+            return await client.call_tool(
+
+                "create_issue",
+                {
+                    "owner": owner,
+                    "repo": repo,
                     "title": title,
-
                     "body": body
-
                 }
 
             )
