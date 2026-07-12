@@ -39,7 +39,7 @@ class FilesystemAgent:
 
         # Example:
         # Later we'll extract the file path dynamically.
-        path = "notes.txt"
+        path = state.get("file_path", "notes.txt")
 
         file_result = await MCPTools.read_file(path)
 

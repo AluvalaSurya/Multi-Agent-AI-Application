@@ -35,13 +35,13 @@ MCP_SERVERS = {
         }
     ),
 
-    # Replace with official Tavily MCP command later
+    
     "tavily": MCPServerConfig(
         name="tavily",
-        command="python",
+        command="npx",
         args=[
-            "-m",
-            "tavily_mcp"
+            "-y",
+            "tavily-mcp@latest"
         ],
         env={
             "TAVILY_API_KEY":

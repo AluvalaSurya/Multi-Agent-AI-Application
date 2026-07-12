@@ -4,8 +4,12 @@ from app.core.agents.filesystem_agent import FilesystemAgent
 from app.core.agents.response_agent import ResponseAgent
 
 #research using tavily 
-def research_node(state):
-    return ResearchAgent(state).run()
+research_agent = ResearchAgent()
+# def research_node(state):
+#     return ResearchAgent(state).run()
+
+async def research_node(state):
+    return await research_agent.run(state)
 
 #for github 
 def github_node(state):

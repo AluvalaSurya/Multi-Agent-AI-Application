@@ -1,17 +1,36 @@
-from app.core.agents.base_agent import BaseAgent
+from langchain_core.messages import HumanMessage
+
+from app.core.llm import LLMFactory
+from app.mcp.tools import MCPTools
 
 
-class ResearchAgent(BaseAgent):
+class ResearchAgent:
 
-    def run(self):
+    async def run(self, state):
+
+        model_name = state["model_name"]
+        query = state["user_query"]
+
+        llm = LLMFactory.get_llm(model_name)
+
+        search_results = await MCPTools.search(query)
 
         prompt = f"""
-        {self.state["system_prompt"]}
+You are a research assistant.
 
-        User Question:
-        {self.state["user_query"]}
-        """
+User Question:
+{query}
 
-        self.state["agent_response"] = self.invoke_llm(prompt)
+Search Results:
+{search_results}
 
-        return self.state
+Use only the relevant search results to answer clearly and accurately.
+"""
+
+        response = llm.invoke(
+            [HumanMessage(content=prompt)]
+        )
+
+        state["agent_outputs"]["research"] = response.content
+
+        return state

@@ -64,12 +64,60 @@ class MCPTools:
 
             return await client.call_tool(
 
-                "search",
+                "tavily_search",
 
                 {
                     "query": query
                 }
 
+            )
+
+    @staticmethod
+    async def research(query: str):
+
+        async with MCPClient("tavily") as client:
+
+            return await client.call_tool(
+                "tavily_research",
+                {
+                    "query": query
+                }
+            )
+
+    @staticmethod
+    async def extract(url: str):
+
+        async with MCPClient("tavily") as client:
+
+            return await client.call_tool(
+                "tavily_extract",
+                {
+                    "urls": [url]
+                }
+            )
+
+    @staticmethod
+    async def crawl(url: str):
+
+        async with MCPClient("tavily") as client:
+
+            return await client.call_tool(
+                "tavily_crawl",
+                {
+                    "url": url
+                }
+            )
+
+    @staticmethod
+    async def map(url: str):
+
+        async with MCPClient("tavily") as client:
+
+            return await client.call_tool(
+                "tavily_map",
+                {
+                    "url": url
+                }
             )
 
     @staticmethod
