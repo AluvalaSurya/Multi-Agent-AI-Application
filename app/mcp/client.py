@@ -52,7 +52,6 @@ class MCPClient:
         await self.session.initialize()
 
     async def close(self):
-
         await self.exit_stack.aclose()
 
     async def list_tools(self):
@@ -64,15 +63,7 @@ class MCPClient:
 
         return await self.session.list_tools()
 
-    async def call_tool(
-
-        self,
-
-        tool_name: str,
-
-        arguments: dict
-
-    ):
+    async def call_tool(self,tool_name: str,arguments: dict):
 
         if self.session is None:
             raise RuntimeError(
@@ -82,27 +73,13 @@ class MCPClient:
         return await self.session.call_tool(
 
             name=tool_name,
-
             arguments=arguments
 
         )
 
     async def __aenter__(self):
-
         await self.connect()
-
         return self
 
-    async def __aexit__(
-
-        self,
-
-        exc_type,
-
-        exc,
-
-        tb
-
-    ):
-
+    async def __aexit__(self,exc_type,exc,tb):
         await self.close()

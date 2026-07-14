@@ -1,6 +1,6 @@
 from typing import Dict, Any
 
-from app.mcp.registry import MCPRegistry
+from app.mcp_registry.registry import MCPRegistry
 
 
 class MCPClient:

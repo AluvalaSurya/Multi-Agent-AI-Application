@@ -11,7 +11,6 @@ class MCPTools:
             return await client.call_tool(
 
                 "read_file",
-
                 {
                     "path": path
                 }
@@ -19,13 +18,7 @@ class MCPTools:
             )
 
     @staticmethod
-    async def write_file(
-
-        path: str,
-
-        content: str
-
-    ):
+    async def write_file(path: str,content: str):
 
         async with MCPClient("filesystem") as client:
 
@@ -35,9 +28,7 @@ class MCPTools:
 
                 {
                     "path": path,
-
                     "content": content
-
                 }
 
             )

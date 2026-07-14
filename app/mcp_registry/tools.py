@@ -1,4 +1,4 @@
-from app.mcp.client import MCPClient
+from app.mcp_registry.client import MCPClient
 
 
 class MCPTools:

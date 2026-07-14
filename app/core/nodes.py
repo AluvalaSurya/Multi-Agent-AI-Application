@@ -5,31 +5,20 @@ from app.core.agents.response_agent import ResponseAgent
 from app.core.supervisor import Supervisor
 from app.core.aggregator import Aggregator
 
-#research using tavily 
+#research node
 research_agent = ResearchAgent()
-# def research_node(state):
-#     return ResearchAgent(state).run()
-
 async def research_node(state):
     return await research_agent.run(state)
 
-#for github 
-def github_node(state):
-    return GithubAgent(state).run()
+#github node 
+github_agent = GithubAgent()
+async def github_node(state):
+    return await github_agent.run(state)
 
-#for filesystem 
+#filesystem node
 filesystem_agent = FilesystemAgent()
-# def filesystem_node(state):
-#     return FilesystemAgent(state).run()
-
-
 async def filesystem_node(state):
     return await filesystem_agent.run(state)
-
-
-# def response_node(state):
-#     return ResponseAgent(state).run()
-
 
 #supervisor node
 supervisor = Supervisor()

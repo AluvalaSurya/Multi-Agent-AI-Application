@@ -2,20 +2,6 @@
 # Routing logic for LangGraph.
 # """
 
-
-# from app.core.state import AgentState
-
-
-# def route_agent(state: AgentState) -> str:
-#     """
-#     Determines the next node to execute.
-
-#     Returns:
-#         str: Name of the next node.
-#     """
-#     return state["next_node"]
-
-
 from typing import Literal
 
 def route_supervisor(state) -> list[str]:

@@ -1,6 +1,6 @@
-from app.mcp.servers.filesystem_server import FilesystemServer
-from app.mcp.servers.github_server import GithubServer
-from app.mcp.servers.tavily_server import TavilyServer
+from app.mcp_registry.servers.filesystem_server import FilesystemServer
+from app.mcp_registry.servers.github_server import GithubServer
+from app.mcp_registry.servers.tavily_server import TavilyServer
 
 
 class MCPRegistry:
